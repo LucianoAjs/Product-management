@@ -1,0 +1,33 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id           String    @id @default(uuid())
+  Description  String?   @db.VarChar(255)
+  price        String?   @db.VarChar(255)
+  purchaseDate DateTime? @db.DateTime()
+  lastName     String?   @db.VarChar(255)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  Category     Category?
+}
+
+model Category {
+  id        String   @id @default(uuid())
+  productId String?  @unique @db.VarChar(255)
+  name      String?  @db.VarChar(255)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  product   Product? @relation(fields: [productId], references: [id], map: "Category_productId_fkey")
+
+  @@index([productId], map: "Category_productId_fkey")
+}
