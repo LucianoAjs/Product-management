@@ -1,0 +1,39 @@
+:host ::ng-deep {
+  .table tbody > tr > td .column-title {
+    display: none;
+  }
+  .table thead > tr > th:last-child {
+    text-align: start;
+  }
+  .table tbody > tr > td {
+    overflow: hidden;
+  }
+}
+
+@media screen and (max-width: 960px) {
+  :host ::ng-deep {
+    .table  {
+      thead > tr > th {
+        display: none !important;
+      }
+        tbody > tr > td {
+          text-align: left;
+          display: block;
+          width: 100%;
+          float: left;
+          clear: left;
+          border: 0 none ;
+          text-overflow: ellipsis;
+
+        .column-title {
+          padding: 0.4rem;
+          min-width: 30%;
+          display: inline-block;
+          margin: -0.4em 1em -0.4em -0.4rem;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}
+
