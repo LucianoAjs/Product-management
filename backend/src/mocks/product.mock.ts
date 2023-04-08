@@ -1,6 +1,7 @@
 import { PRODUCT } from '@/constants/product.constant';
 import { SuccessResponseDto } from '@/dto/common-dto/success-response.dto';
-import { ProductRequestDto } from '@/dto/product-dto/request.dto';
+import { CreateProductRequestDto } from '@/dto/product-dto/create-product-request.dto';
+import { UpdateProductRequestDto } from '@/dto/product-dto/update-product-request.dto copy';
 import { HttpStatus } from '@nestjs/common';
 
 const {
@@ -15,7 +16,7 @@ export class ProductMock {
   public static mockProductId = (): string =>
     '2f7032b8-7634-4b42-9824-425f60bd2e8f';
 
-  public static mockProductRequest = (): ProductRequestDto => {
+  public static mockProductRequest = (): CreateProductRequestDto => {
     return {
       id: this.mockProductId(),
       name: 'Processador',
@@ -35,9 +36,16 @@ export class ProductMock {
     };
   };
 
-  public static mockUpdatedProductRequest = (): { productId: string } => {
+  public static mockUpdatedProductRequest = (): UpdateProductRequestDto => {
     return {
-      productId: SUCCESS_UPDATED_RESPONSE(this.mockProductId()),
+      id: this.mockProductId(),
+      name: 'Processador',
+      description: 'Processador AMD Ryzen 5 4600G',
+      price: '2.000',
+      purchaseDate: new Date('06/04/2023'),
+      category: {
+        name: 'Livro',
+      },
     };
   };
 
@@ -48,9 +56,9 @@ export class ProductMock {
     };
   };
 
-  public static mockDeleteProductRequest = (): { productId: string } => {
+  public static mockDeleteProductRequest = (): { id: string } => {
     return {
-      productId: SUCCESS_DELETED_RESPONSE(this.mockProductId()),
+      id: this.mockProductId(),
     };
   };
 

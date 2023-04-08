@@ -34,6 +34,10 @@ export const PRODUCT = {
       `Product ${productId} has been deleted`,
   },
   API_PROPERTY: {
+    ID: {
+      DESC: 'Product id.',
+      VALUE: '231oih3oi215u139ud01jidw232e',
+    },
     NAME: {
       DESC: 'Product name.',
       VALUE: 'Processador',

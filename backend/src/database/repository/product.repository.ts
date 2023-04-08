@@ -1,6 +1,7 @@
 import { PrismaService } from '@/database/prisma.service';
-import { ProductRequestDto } from '@/dto/product-dto/request.dto';
-import { ProductResponseDto } from '@/dto/product-dto/response.dto';
+import { CreateProductRequestDto } from '@/dto/product-dto/create-product-request.dto';
+import { ProductResponseDto } from '@/dto/product-dto/product-response.dto';
+import { UpdateProductRequestDto } from '@/dto/product-dto/update-product-request.dto copy';
 import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 
@@ -11,6 +12,7 @@ export class ProductRepository {
   async getAllProducts(): Promise<ProductResponseDto[]> {
     return await this.prisma.product.findMany({
       select: {
+        id: true,
         name: true,
         price: true,
         description: true,
@@ -20,19 +22,27 @@ export class ProductRepository {
     });
   }
 
-  async createProduct(product: ProductRequestDto): Promise<CreateProduct> {
-    return await this.prisma.product.upsert({
-      where: { name: product.name },
-      create: {
+  async createProduct(product: CreateProductRequestDto): Promise<ProductId> {
+    return await this.prisma.product.create({
+      data: {
         ...product,
         category: {
           create: { ...product.category },
         },
       },
-      update: {
+      select: { id: true },
+    });
+  }
+
+  async updateProduct(product: UpdateProductRequestDto): Promise<ProductId> {
+    return await this.prisma.product.update({
+      where: { id: product.id },
+      data: {
         ...product,
         category: {
-          update: { ...product.category },
+          update: {
+            ...product.category,
+          },
         },
       },
       select: { id: true },
@@ -40,10 +50,10 @@ export class ProductRepository {
   }
 }
 
-const createProduct = Prisma.validator<Prisma.ProductArgs>()({
+const productId = Prisma.validator<Prisma.ProductArgs>()({
   select: {
     id: true,
   },
 });
 
-type CreateProduct = Prisma.ProductGetPayload<typeof createProduct>;
+type ProductId = Prisma.ProductGetPayload<typeof productId>;

@@ -12,6 +12,7 @@
     "db:up": "docker compose --env-file .env up -d",
     "db:down": "docker compose --env-file .env down -v",
     "prisma:migrate:local": "dotenv -e .env npx prisma migrate dev --schema ./prisma/schema.prisma",
+    "prisma:migrate:deploy:local": "dotenv -e .env -- npx prisma migrate deploy --schema ./prisma/schema.prisma",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
