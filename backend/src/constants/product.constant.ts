@@ -26,6 +26,12 @@ export const PRODUCT = {
     },
     UNAUTHORIZED_OPERATION: 'Unauthorized',
     INTERNAL_SERVER_ERROR: 'Internal Server Error',
+    SUCCESS_CREATED_RESPONSE: (productId: string) =>
+      `Product ${productId} has been created`,
+    SUCCESS_UPDATED_RESPONSE: (productId: string) =>
+      `Product ${productId} has been updated`,
+    SUCCESS_DELETED_RESPONSE: (productId: string) =>
+      `Product ${productId} has been deleted`,
   },
   API_PROPERTY: {
     NAME: {
