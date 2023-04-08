@@ -12,13 +12,13 @@ datasource db {
 
 model Product {
   id           String    @id @default(uuid())
-  Description  String?   @db.VarChar(255)
-  price        String?   @db.VarChar(255)
+  name         String    @unique @db.VarChar(255)
+  description  String    @db.VarChar(255)
+  price        String    @db.VarChar(255)
   purchaseDate DateTime? @db.DateTime()
-  lastName     String?   @db.VarChar(255)
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
-  Category     Category?
+  category     Category?
 }
 
 model Category {
