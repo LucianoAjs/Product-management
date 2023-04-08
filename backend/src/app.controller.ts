@@ -5,7 +5,16 @@ import { ProductResponseDto } from '@/dto/product-dto/product-response.dto';
 import { UpdateProductRequestDto } from '@/dto/product-dto/update-product-request.dto copy';
 import { InternalServerErrorException } from '@/helpers/errors/internal-server-error.exception';
 import { UnauthorizedException } from '@/helpers/errors/unauthorized.exception';
-import { Body, Controller, Get, HttpStatus, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpStatus,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AppService } from 'app.service';
 
@@ -107,5 +116,30 @@ export class AppController {
     @Body() body: UpdateProductRequestDto,
   ): Promise<SuccessResponseDto> {
     return await this.appService.updateProduct(body);
+  }
+
+  @ApiTags('PRODUCT')
+  @Delete('product/:id')
+  @ApiOperation({
+    summary: API_OPERATION.DELETE_PRODUCT.SUMMARY,
+    description: API_OPERATION.DELETE_PRODUCT.DESCRIPTION,
+  })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: SUCCESS_OPERATION.DESC,
+    type: () => SuccessResponseDto,
+  })
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: UNAUTHORIZED_OPERATION,
+    type: () => UnauthorizedException,
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: INTERNAL_SERVER_ERROR,
+    type: () => InternalServerErrorException,
+  })
+  async deleteProduct(@Param('id') id: string): Promise<SuccessResponseDto> {
+    return await this.appService.deleteProduct(id);
   }
 }

@@ -7,7 +7,11 @@ import { UpdateProductRequestDto } from '@/dto/product-dto/update-product-reques
 import { BadRequestException, HttpStatus, Injectable } from '@nestjs/common';
 
 const {
-  API_RESPONSE: { SUCCESS_CREATED_RESPONSE, SUCCESS_UPDATED_RESPONSE },
+  API_RESPONSE: {
+    SUCCESS_CREATED_RESPONSE,
+    SUCCESS_UPDATED_RESPONSE,
+    SUCCESS_DELETED_RESPONSE,
+  },
 } = PRODUCT;
 
 @Injectable()
@@ -18,7 +22,7 @@ export class AppService {
     try {
       return await this.productRepository.getAllProducts();
     } catch (error) {
-      throw new BadRequestException(error);
+      throw new BadRequestException(error.meta.cause);
     }
   }
 
@@ -33,7 +37,7 @@ export class AppService {
         status: HttpStatus.CREATED,
       };
     } catch (error) {
-      throw new BadRequestException(error);
+      throw new BadRequestException(error.meta.cause);
     }
   }
 
@@ -48,7 +52,20 @@ export class AppService {
         status: HttpStatus.OK,
       };
     } catch (error) {
-      throw new BadRequestException(error);
+      throw new BadRequestException(error.meta.cause);
+    }
+  }
+
+  async deleteProduct(productId: string): Promise<SuccessResponseDto> {
+    try {
+      const { id } = await this.productRepository.deleteProduct(productId);
+
+      return {
+        message: SUCCESS_DELETED_RESPONSE(id),
+        status: HttpStatus.OK,
+      };
+    } catch (error) {
+      throw new BadRequestException(error.meta.cause);
     }
   }
 }

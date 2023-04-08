@@ -48,6 +48,13 @@ export class ProductRepository {
       select: { id: true },
     });
   }
+
+  async deleteProduct(id: string): Promise<ProductId> {
+    return await this.prisma.product.delete({
+      where: { id },
+      select: { id: true },
+    });
+  }
 }
 
 const productId = Prisma.validator<Prisma.ProductArgs>()({
