@@ -1,6 +1,7 @@
 import { PRODUCT } from '@/constants/product.constant';
 import { SuccessResponseDto } from '@/dto/common-dto/success-response.dto';
 import { CreateProductRequestDto } from '@/dto/product-dto/create-product-request.dto';
+import { ProductQueryDto } from '@/dto/product-dto/product-query-dto';
 import { ProductResponseDto } from '@/dto/product-dto/product-response.dto';
 import { UpdateProductRequestDto } from '@/dto/product-dto/update-product-request.dto copy';
 import { InternalServerErrorException } from '@/helpers/errors/internal-server-error.exception';
@@ -14,6 +15,7 @@ import {
   Param,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AppService } from 'app.service';
@@ -52,8 +54,10 @@ export class AppController {
     description: INTERNAL_SERVER_ERROR,
     type: () => InternalServerErrorException,
   })
-  async getAllProducts(): Promise<ProductResponseDto[]> {
-    return await this.appService.getAllProducts();
+  async getAllProducts(
+    @Query() params: ProductQueryDto,
+  ): Promise<ProductResponseDto[]> {
+    return await this.appService.getAllProducts(params);
   }
 
   @ApiTags('PRODUCT')

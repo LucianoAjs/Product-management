@@ -32,6 +32,8 @@ export const PRODUCT = {
       `Product ${productId} has been updated`,
     SUCCESS_DELETED_RESPONSE: (productId: string) =>
       `Product ${productId} has been deleted`,
+    ERROR_NOT_FOUND_RESPONSE: (productId: string) =>
+      `Product ${productId} not found`,
   },
   API_PROPERTY: {
     ID: {

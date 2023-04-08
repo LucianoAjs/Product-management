@@ -1,5 +1,6 @@
 import { PrismaService } from '@/database/prisma.service';
 import { CreateProductRequestDto } from '@/dto/product-dto/create-product-request.dto';
+import { ProductQueryDto } from '@/dto/product-dto/product-query-dto';
 import { ProductResponseDto } from '@/dto/product-dto/product-response.dto';
 import { UpdateProductRequestDto } from '@/dto/product-dto/update-product-request.dto copy';
 import { Injectable } from '@nestjs/common';
@@ -9,8 +10,9 @@ import { Prisma } from '@prisma/client';
 export class ProductRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async getAllProducts(): Promise<ProductResponseDto[]> {
+  async getAllProducts(params: ProductQueryDto): Promise<ProductResponseDto[]> {
     return await this.prisma.product.findMany({
+      where: { category: { name: params.category } },
       select: {
         id: true,
         name: true,
