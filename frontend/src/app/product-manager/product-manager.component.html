@@ -1,25 +1,86 @@
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
-        <span class="column-title">First</span>
-        Mark
-      </td>
-      <td>
-        <span class="column-title">First</span>
-        Otto
-      </td>
-      <td>
-        <span class="column-title">First</span>
-        @mdo
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="container">
+  <div class="align-header">
+    <h2 class="align-end">Product Management</h2>
+
+    <div class="align-search">
+      <div class="align-column">
+        <label>Category</label>
+        <input />
+      </div>
+      <button type="button" class="btn btn-primary btn-sm">Add Product</button>
+    </div>
+  </div>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Price</th>
+        <th scope="col">PurchaseDate</th>
+        <th scope="col">Category</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of list_items">
+        <td>
+          <span class="column-title">Name</span>
+          {{ item.name }}
+        </td>
+        <td>
+          <span class="column-title">Description</span>
+          {{ item.description }}
+        </td>
+        <td>
+          <span class="column-title">Price</span>
+          {{ item.price }}
+        </td>
+        <td>
+          <span class="column-title">PurchaseDate</span>
+          {{ item.purchaseDate }}
+        </td>
+        <td>
+          <span class="column-title">Category</span>
+          {{ item.category }}
+        </td>
+        <td>
+          <div class="flex">
+            <span class="column-title">Actions</span>
+
+            <div class="dropdown">
+              <i
+                class="material-icons btn btn-secondary dropdown-toggle"
+                type="button"
+                id="dropdownMenu2"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+                >more_vert
+              </i>
+
+              <div
+                class="dropdown-menu dropdown-menu-right"
+                aria-labelledby="dropdownMenu2"
+              >
+                <button
+                  type="button"
+                  class="dropdown-item btn btn-secondary btn-block"
+                >
+                  Update product
+                </button>
+
+                <button
+                  type="button"
+                  class="dropdown-item btn btn-danger btn-block"
+                >
+                  Delete product
+                </button>
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
