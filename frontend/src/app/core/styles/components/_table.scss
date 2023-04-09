@@ -32,19 +32,48 @@ table{
         vertical-align: middle;
         padding-left: $margin !important;
         padding-right: $margin !important;
+
+        .column-title {
+          display: none;
+        }
+
+        i {
+          justify-content: flex-start !important;
+        }
       }
     }
+  }
+}
 
-    &::before {
-      content: '';
-      display: table-row;
-      height: 0.5rem;
+@media screen and (max-width: 960px) {
+  .table  {
+    thead {
+      display: none !important;
+      position: absolute;
     }
-
-    &::after {
-      content: '';
-      display: table-row;
-      height: 0;
+    tbody > tr > td {
+      text-align: left;
+      display: block;
+      width: 100%;
+      float: left;
+      clear: left;
+      border: 0 none ;
+      text-overflow: ellipsis;
+      
+      .column-title {
+        padding: 0.4rem;
+        min-width: 30%;
+        display: inline-block;
+        margin: -0.4em 1em -0.4em -0.4rem;
+        font-weight: bold;
+        align-self: center;
+      }
+      &:last-child {
+        border-bottom: 1px solid black;
+      }
     }
+  }
+  .flex{
+    display: flex !important;
   }
 }

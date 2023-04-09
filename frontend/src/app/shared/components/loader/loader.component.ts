@@ -18,7 +18,6 @@ export class LoaderComponent implements OnInit {
   public ngOnInit() {
     this.loaderService.loaderState
       .pipe(takeUntil(this.destroy$))
-      .pipe()
       .subscribe((state: LoaderState) => {
         this.show = state.show;
       });

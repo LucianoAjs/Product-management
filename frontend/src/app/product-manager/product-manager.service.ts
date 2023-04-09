@@ -22,16 +22,14 @@ export class ProductManagerService {
   }
 
   public deleteProduct(id: string) {
-    return this.http.delete<ICommonResponse>(`${this.endpoint}/${id}`);
+    return this.http.delete<ICommonResponse>(`${this.endpoint}/product/${id}`);
   }
 
   public updateProduct(product: IUpdateProductRequest) {
-    return this.http.put<ICommonResponse>(`${this.endpoint}`, { product });
+    return this.http.put<ICommonResponse>(`${this.endpoint}/product`, product);
   }
 
   public createProduct(product: ICreateProductRequest) {
-    return this.http.post<ICommonResponse>(`${this.endpoint}`, {
-      product,
-    });
+    return this.http.post<ICommonResponse>(`${this.endpoint}/product`, product);
   }
 }
