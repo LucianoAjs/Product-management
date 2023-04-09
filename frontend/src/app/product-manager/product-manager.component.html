@@ -5,7 +5,15 @@
     <div class="align-search">
       <div class="align-column">
         <label>Category</label>
-        <input />
+        <form [formGroup]="searchForm">
+          <input
+            type="text"
+            formControlName="category"
+            placeholder="Search by category"
+            name="category"
+            id="category-name"
+          />
+        </form>
       </div>
       <button type="button" class="btn btn-primary btn-sm">Add Product</button>
     </div>
@@ -34,15 +42,15 @@
         </td>
         <td>
           <span class="column-title">Price</span>
-          {{ item.price }}
+          {{ formatCurrency(item.price) }}
         </td>
         <td>
           <span class="column-title">PurchaseDate</span>
-          {{ item.purchaseDate }}
+          {{ covertDateToPtBr(item.purchaseDate) }}
         </td>
         <td>
           <span class="column-title">Category</span>
-          {{ item.category }}
+          {{ item.category?.name }}
         </td>
         <td>
           <div class="flex">

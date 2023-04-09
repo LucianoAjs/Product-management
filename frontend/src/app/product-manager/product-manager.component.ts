@@ -1,49 +1,47 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormControl } from '@angular/forms';
+import { IProductResponse } from '@core/models/product-response.model';
+import { currency } from '@shared/utils/currency.utils';
+import { convertDate } from '@shared/utils/date.utils';
+import { debounce } from '@shared/utils/debounce.utils';
+import { ProductManagerService } from 'app/product-manager/product-manager.service';
 
 @Component({
   selector: 'app-product-manager',
   templateUrl: './product-manager.component.html',
   styleUrls: ['./product-manager.component.scss'],
+  providers: [ProductManagerService],
 })
 export class ProductManagerComponent {
-  public list_items = [
-    {
-      name: 'Headset Gamer Havit',
-      description:
-        'Drivers 53mm, Microfone Plugável, P2, PC, PS4, XBOX ONE, Preto - HV-H2002D',
-      price: 'R$ 189,99',
-      purchaseDate: '06/04/2023',
-      category: 'Eletronico',
-    },
-    {
-      name: 'Processador Intel Core i5-10400F',
-      description:
-        '2.9GHz (4.3GHz Max Turbo), Cache 12MB, 6 Núcleos, 12 Threads, LGA 1200 - BX8070110400F',
-      price: 'R$ 2000',
-      purchaseDate: '06/04/2023',
-      category: 'Eletronico',
-    },
-    {
-      name: 'Teclado Mecânico Gamer HyperX Alloy MKW100',
-      description: 'Teclado Mecânico Gamer HyperX Alloy MKW100',
-      price: 'RGB, Switch Red, Full Size, Layout US - 4P5E1AA#ABA',
-      purchaseDate: '06/04/2023',
-      category: 'Eletronico',
-    },
-    {
-      name: 'Notebook Asus AMD Ryzen 5-3500U',
-      description:
-        '8GB RAM, SSD 256GB, 15,6, Radeon Vega 8, Windows 11 Home, Cinza - M515DA-BR1213W',
-      price: 'R$ 2.500,0',
-      purchaseDate: '06/04/2023',
-      category: 'Eletronico',
-    },
-    {
-      name: 'Mouse Gamer Redragon Cobra',
-      description: 'Chroma RGB, 12400DPI, 7 Botões, Preto - M711 V2',
-      price: 'R$ 109,0',
-      purchaseDate: '06/04/2023',
-      category: 'Eletronico',
-    },
-  ];
+  constructor(
+    private readonly productManagerService: ProductManagerService,
+    private readonly formBuilder: FormBuilder,
+  ) {}
+
+  public searchForm = this.formBuilder.group({
+    category: new FormControl(''),
+  });
+
+  public list_items: Array<IProductResponse> = [];
+
+  public formatCurrency = currency;
+  public covertDateToPtBr = convertDate;
+
+  public ngOnInit(): void {
+    this.getAllPolicies();
+
+    this.searchForm.valueChanges.subscribe(() => {
+      debounce(this.getAllPolicies.bind(this), 1000, 'getPolicyData');
+    });
+  }
+
+  private getAllPolicies() {
+    const query = this.searchForm.get('category')?.value?.trim();
+
+    this.productManagerService
+      .getAllProducts(query)
+      .subscribe((products: IProductResponse[]) => {
+        this.list_items = products;
+      });
+  }
 }

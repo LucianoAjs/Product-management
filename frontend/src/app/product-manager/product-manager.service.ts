@@ -13,9 +13,11 @@ export class ProductManagerService {
 
   constructor(private http: HttpClient) {}
 
-  public getAllProducts(category: string) {
-    return this.http.get<IProductResponse>(
-      `${this.endpoint}/product?category=${category}`,
+  public getAllProducts(category?: string) {
+    const query = category ? `?category=${category}` : '';
+
+    return this.http.get<IProductResponse[]>(
+      `${this.endpoint}/product${query}`,
     );
   }
 

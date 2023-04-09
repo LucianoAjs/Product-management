@@ -12,7 +12,7 @@ export class ProductRepository {
 
   async getAllProducts(params: ProductQueryDto): Promise<ProductResponseDto[]> {
     return await this.prisma.product.findMany({
-      where: { category: { name: params.category } },
+      where: { category: { name: { contains: params.category } } },
       select: {
         id: true,
         name: true,
