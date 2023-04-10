@@ -3,19 +3,24 @@
     <h2 class="align-end">Product Management</h2>
 
     <div class="align-search">
-      <div class="align-column">
-        <label>Category</label>
-        <form [formGroup]="searchForm">
-          <input
-            type="text"
-            formControlName="category"
-            placeholder="Search by category"
-            name="category"
-            id="category-name"
-          />
-        </form>
-      </div>
-      <button type="button" class="btn btn-primary btn-sm">Add Product</button>
+      <form [formGroup]="searchForm">
+        <input
+          type="text"
+          class="bd-search"
+          formControlName="category"
+          placeholder="Search by category"
+          name="category"
+          id="category-name"
+        />
+      </form>
+
+      <button
+        type="button"
+        (click)="showCreateProductDialog()"
+        class="btn btn-sm"
+      >
+        <i class="material-icons">add</i> Add Product
+      </button>
     </div>
   </div>
 
@@ -74,15 +79,17 @@
                 <button
                   type="button"
                   class="dropdown-item btn btn-secondary btn-block"
+                  (click)="showUpdateProductDialog(item)"
                 >
-                  Update product
+                  <i class="material-icons">edit</i>Update product
                 </button>
 
                 <button
                   type="button"
                   class="dropdown-item btn btn-danger btn-block"
+                  (click)="showConfirmDeleteProduct(item)"
                 >
-                  Delete product
+                  <i class="material-icons">delete</i>Delete product
                 </button>
               </div>
             </div>
@@ -91,4 +98,8 @@
       </tr>
     </tbody>
   </table>
+
+  <div class="align-center" *ngIf="list_items.length === 0">
+    No products found.
+  </div>
 </div>

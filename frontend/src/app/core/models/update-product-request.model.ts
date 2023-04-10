@@ -5,6 +5,6 @@ export interface IUpdateProductRequest {
   name: string;
   description: string;
   price: string;
-  purchaseDate?: Date | undefined;
+  purchaseDate?: string;
   category?: ICategory;
 }

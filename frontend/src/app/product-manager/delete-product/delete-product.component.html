@@ -1,0 +1,20 @@
+<h2 mat-dialog-title>Delete Confirm</h2>
+
+<mat-dialog-content>
+  <h3>
+    Are you sure you want to delete the product: <u>{{ entityName }}</u
+    >?
+  </h3>
+  <h3>You can't undo this action!</h3>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button class="btn btn-light" [mat-dialog-close]="false">Close</button>
+  <button
+    style="margin-left: 10px"
+    class="btn btn-primary"
+    [mat-dialog-close]="true"
+  >
+    Save
+  </button>
+</mat-dialog-actions>
