@@ -39,11 +39,12 @@ DATABASE_URL=mysql://root:123456@localhost:3306/product_db
 SWAGGER_USER=admin
 SWAGGER_PASSWORD=123456
 ```
+3. Execute o comando npm run prisma:migrate:local
 
 > **DICA:**
 > Se você tiver o Docker Compose instalado, execute o comando npm run db:up para subir os containers do banco de dados e Adminer. Assim, você poderá acessar os dados do banco na rota localhost:8080.
 
-3. Em seguida, execute o comando npm run start:dev.
+4. Em seguida, execute o comando npm run start:dev
 
 > Observação: o backend foi criado com NestJS e com os decorators do NestJS, é possível gerar uma documentação para API, nesse caso o Swagger, para visualizar os endpoints documentados. Acesse a URL localhost:3000/swagger-docs e faça login com as seguintes credenciais:
 
